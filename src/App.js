@@ -1,8 +1,8 @@
 
 import React from 'react'
-import ReactDOM from 'react-dom'
 import mapboxgl from 'mapbox-gl'
 import axios from 'axios';
+import io from 'socket.io-client';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGFuaWVsamFtZXNrYXkiLCJhIjoiY2pnZ25xanU5MmRldDMzcGY3ZWhwOWE5biJ9.vEgSv9Vy49SODOG2U5PopA';
 
@@ -32,12 +32,14 @@ class App extends React.Component {
 
     componentDidMount() {
 
+      const socket = io('http://localhost:1234');
+
       const { lng, lat, zoom } = this.state;
 
       const map = new mapboxgl.Map({
         container: this.mapContainer,
-        //style: 'mapbox://styles/mapbox/streets-v9',
-        style: 'mapbox://styles/danieljameskay/cjgzfw1ac000b2stladr4lg20',
+        style: 'mapbox://styles/mapbox/streets-v9',
+        //style: 'mapbox://styles/danieljameskay/cjgzfw1ac000b2stladr4lg20',
         center: [lng, lat],
         zoom
       });
@@ -73,20 +75,11 @@ class App extends React.Component {
           "circle-radius": 12,
           "circle-color": "#b5563e"
         }
-      });
+      });  
 
-      const instance = axios.create({
-        baseURL: 'http://localhost:8080',
-        // headers: {
-        //   'connection' : 'keep-alive'
-        // }
-      });
-
-      
-
-      // Emits vehicles location every 2 seconds. This needs sending to Kafka.
+          // Emits vehicles location every 2 seconds. This needs sending to Kafka.
       setInterval(() => {
-        instance.post(map.getSource('driver')._data.coordinates.toString());
+        socket.emit('current_loc', map.getSource('driver')._data.coordinates.toString())
       }, 2000);
 
     });
