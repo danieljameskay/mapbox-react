@@ -16,7 +16,8 @@ class App extends React.Component {
         zoom: 17,
         waypointTracker: 0,
         newJob: false,
-        intervalId: 0
+        intervalId: 0,
+        driverId: Math.ceil(Math.random() * 248)
       };
       this.pointOnMap = this.pointOnMap.bind(this);
     }
@@ -32,14 +33,14 @@ class App extends React.Component {
 
     componentDidMount() {
 
-      const socket = io('http://localhost:1234');
+      const socket = io('https://pure-fjord-83055.herokuapp.com');
 
       const { lng, lat, zoom } = this.state;
 
       const map = new mapboxgl.Map({
         container: this.mapContainer,
-        style: 'mapbox://styles/mapbox/streets-v9',
-        //style: 'mapbox://styles/danieljameskay/cjgzfw1ac000b2stladr4lg20',
+        //style: 'mapbox://styles/mapbox/streets-v9',
+        style: 'mapbox://styles/danieljameskay/cjgzfw1ac000b2stladr4lg20',
         center: [lng, lat],
         zoom
       });
@@ -77,9 +78,9 @@ class App extends React.Component {
         }
       });  
 
-          // Emits vehicles location every 2 seconds. This needs sending to Kafka.
+      // Emits vehicles location every 2 seconds. This needs sending to Kafka.
       setInterval(() => {
-        socket.emit('current_loc', map.getSource('driver')._data.coordinates.toString())
+        socket.emit('current_loc', `DRIVER: ${this.state.driverId} : ${map.getSource('driver')._data.coordinates.toString()}`)
       }, 2000);
 
     });
