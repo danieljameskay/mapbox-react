@@ -33,7 +33,7 @@ class App extends React.Component {
 
     componentDidMount() {
 
-      const socket = io(process.env.REACT_APP_SOCKET_SERVER);
+      const socket = io('http://8911d705.ngrok.io');
 
       const { lng, lat, zoom } = this.state;
 
