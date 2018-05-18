@@ -4,7 +4,7 @@ import mapboxgl from 'mapbox-gl'
 import axios from 'axios';
 import io from 'socket.io-client';
 
-mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN;
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 class App extends React.Component {
 
@@ -33,7 +33,7 @@ class App extends React.Component {
 
     componentDidMount() {
 
-      const socket = io(process.env.SOCKET_SERVER);
+      const socket = io(process.env.REACT_APP_SOCKET_SERVER);
 
       const { lng, lat, zoom } = this.state;
 
