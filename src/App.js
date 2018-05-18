@@ -4,7 +4,7 @@ import mapboxgl from 'mapbox-gl'
 import axios from 'axios';
 import io from 'socket.io-client';
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiZGFuaWVsamFtZXNrYXkiLCJhIjoiY2pnZ25xanU5MmRldDMzcGY3ZWhwOWE5biJ9.vEgSv9Vy49SODOG2U5PopA';
+mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN;
 
 class App extends React.Component {
 
@@ -33,7 +33,7 @@ class App extends React.Component {
 
     componentDidMount() {
 
-      const socket = io('https://pure-fjord-83055.herokuapp.com');
+      const socket = io(process.env.SOCKET_SERVER);
 
       const { lng, lat, zoom } = this.state;
 
