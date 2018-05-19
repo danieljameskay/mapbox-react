@@ -78,9 +78,14 @@ class App extends React.Component {
         }
       });  
 
-      // Emits vehicles location every 2 seconds. This needs sending to Kafka.
+      let driverData = {
+        driver: this.state.driverId,
+        coordinates: map.getSource('driver')._data.coordinates.toString()
+      }
+
+      // Emits vehicles location every 2 seconds to the socket.
       setInterval(() => {
-        socket.emit('current_loc', `DRIVER: ${this.state.driverId} : ${map.getSource('driver')._data.coordinates.toString()}`)
+        socket.emit('current_loc', driverData);
       }, 2000);
 
     });
