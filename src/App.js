@@ -35,6 +35,10 @@ class App extends React.Component {
 
       const socket = io(process.env.REACT_APP_SOCKET_SERVER);
 
+      window.onbeforeunload = (e) => {
+        socket.disconnect();
+      };
+
       const { lng, lat, zoom } = this.state;
 
       const map = new mapboxgl.Map({
