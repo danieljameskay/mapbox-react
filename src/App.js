@@ -78,13 +78,12 @@ class App extends React.Component {
         }
       });  
 
-      let driverData = {
-        driver: this.state.driverId,
-        coordinates: map.getSource('driver')._data.coordinates.toString()
-      }
-
       // Emits vehicles location every 2 seconds to the socket.
       setInterval(() => {
+        let driverData = {
+          driver: this.state.driverId,
+          coordinates: map.getSource('driver')._data.coordinates.toString()
+        };
         socket.emit('current_loc', driverData);
       }, 2000);
 
@@ -105,7 +104,7 @@ class App extends React.Component {
       // creates the source for the end point
       map.addSource('end', {
         "type": "geojson",
-        "data":{
+        "data": {
             "type": "Point",
             "coordinates": Object.values(e.lngLat)
         }
