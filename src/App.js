@@ -3,9 +3,6 @@ import React from 'react';
 import mapboxgl from 'mapbox-gl';
 import axios from 'axios';
 import io from 'socket.io-client';
-import { config } from "dotenv";
-
-config();
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
