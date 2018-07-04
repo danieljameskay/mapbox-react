@@ -2,9 +2,9 @@
 import React from 'react';
 import mapboxgl from 'mapbox-gl';
 import axios from 'axios';
+import { config } from "dotenv";
 
-//import { config } from "dotenv";
-//config();
+config();
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
@@ -84,7 +84,7 @@ class App extends React.Component {
       
             // Emits vehicles location every 2 seconds. This needs sending to Kafka.
             setInterval(() => {
-              socket.send(JSON.stringify({driverId: this.state.driverId, driverCoordinates: map.getSource('driver')._data.coordinates.toString(), dateTime: Date.now().toString()}));
+              socket.send(JSON.stringify({driverId: this.state.driverId, driverCoordinates: `${map.getSource('driver')._data.coordinates[1]},${map.getSource('driver')._data.coordinates[0]}`, dateTime: Date.now().toString()}));
             }, 2000);
           });
       
