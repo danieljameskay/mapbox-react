@@ -2,9 +2,9 @@
 import React from 'react';
 import mapboxgl from 'mapbox-gl';
 import axios from 'axios';
-import { config } from "dotenv";
 
-config();
+//import { config } from "dotenv";
+//config();
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
